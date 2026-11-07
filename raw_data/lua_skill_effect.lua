@@ -1,0 +1,184 @@
+﻿-- chunkname: @modules/configs/excel2json/lua_skill_effect.lua
+
+module("modules.configs.excel2json.lua_skill_effect", package.seeall)
+
+local lua_skill_effect = {}
+local fields = {
+	behavior9 = 69,
+	limit15 = 107,
+	condition8 = 61,
+	limit14 = 101,
+	roundLimit13 = 96,
+	behaviorTarget9 = 70,
+	behaviorTarget6 = 52,
+	behaviorTarget5 = 46,
+	clientIgnoreCondition = 9,
+	roundLimit6 = 54,
+	condition6 = 49,
+	behavior12 = 87,
+	roundLimit10 = 78,
+	effectTag = 15,
+	condition17 = 115,
+	needExPoint = 6,
+	conditionTarget10 = 74,
+	condition5 = 43,
+	roundLimit2 = 30,
+	condition10 = 73,
+	limit1 = 23,
+	roundLimit8 = 66,
+	roundLimit5 = 48,
+	bigSkillPoint = 12,
+	logicTarget = 18,
+	isExtra = 8,
+	condition3 = 31,
+	condition7 = 55,
+	id = 1,
+	behaviorTarget11 = 82,
+	roundLimit9 = 72,
+	behaviorTarget10 = 76,
+	behavior11 = 81,
+	qtePowerCost = 11,
+	behaviorTarget12 = 88,
+	limit5 = 47,
+	behavior3 = 33,
+	condition4 = 37,
+	behaviorTarget7 = 58,
+	roundLimit14 = 102,
+	behavior1 = 21,
+	limit4 = 41,
+	behaviorTarget20 = 136,
+	behavior18 = 123,
+	condition9 = 67,
+	behaviorTarget4 = 40,
+	isBigSkill = 5,
+	condition13 = 91,
+	limit16 = 113,
+	limit19 = 131,
+	condition20 = 133,
+	roundLimit3 = 36,
+	limit20 = 137,
+	behavior16 = 111,
+	condition12 = 85,
+	behaviorTarget15 = 106,
+	conditionTarget9 = 68,
+	behaviorTarget14 = 100,
+	behavior17 = 117,
+	condition15 = 103,
+	roundLimit12 = 90,
+	conditionTarget8 = 62,
+	conditionTarget19 = 128,
+	condition2 = 25,
+	behaviorTarget13 = 94,
+	limit7 = 59,
+	conditionTarget18 = 122,
+	roundLimit11 = 84,
+	behaviorTarget19 = 130,
+	behaviorTarget18 = 124,
+	limit6 = 53,
+	behaviorTarget8 = 64,
+	roundLimit16 = 114,
+	roundLimit17 = 120,
+	limit13 = 95,
+	targetLimit = 13,
+	condition14 = 97,
+	behaviorTarget17 = 118,
+	limit12 = 89,
+	behaviorTarget16 = 112,
+	roundLimit15 = 108,
+	behavior10 = 75,
+	condition18 = 121,
+	showTag = 14,
+	limit11 = 83,
+	conditionTarget20 = 134,
+	condition11 = 79,
+	limit10 = 77,
+	behaviorTarget3 = 34,
+	roundLimit19 = 132,
+	conditionTarget5 = 44,
+	behavior14 = 99,
+	limit18 = 125,
+	behavior15 = 105,
+	conditionTarget1 = 20,
+	conditionTarget4 = 38,
+	conditionTarget7 = 56,
+	conditionTarget15 = 104,
+	behaviorTarget1 = 22,
+	behaviorTarget2 = 28,
+	behavior13 = 93,
+	conditionTarget3 = 32,
+	conditionTarget11 = 80,
+	conditionTarget6 = 50,
+	conditionTarget14 = 98,
+	conditionTarget17 = 116,
+	conditionTarget2 = 26,
+	condition16 = 109,
+	conditionTarget13 = 92,
+	conditionTarget16 = 110,
+	behavior2 = 27,
+	limit9 = 71,
+	isQteBlock = 4,
+	conditionTarget12 = 86,
+	limit8 = 65,
+	behavior19 = 129,
+	roundLimit20 = 138,
+	roundLimit4 = 42,
+	roundLimit18 = 126,
+	skillEffectType = 7,
+	type = 3,
+	condition19 = 127,
+	limit3 = 35,
+	limit2 = 29,
+	powerCost = 10,
+	condition1 = 19,
+	behavior8 = 63,
+	behavior20 = 135,
+	desc = 2,
+	limit17 = 119,
+	roundLimit7 = 60,
+	roundLimit1 = 24,
+	behavior5 = 45,
+	behavior4 = 39,
+	damageRate = 17,
+	resistancesTag = 16,
+	behavior7 = 57,
+	behavior6 = 51
+}
+local primaryKey = {
+	"id"
+}
+local mlStringKey = {
+	desc = 1
+}
+local _configList, _configDict
+local configPath = "configs.skill_effect_config"
+
+local function onConfigLoad()
+	if _configList then
+		return
+	end
+
+	local config = LuaUtil.requireConfig(configPath)
+
+	_configList, _configDict = JsonToLuaParser.parse(config, fields, primaryKey, mlStringKey)
+
+	rawset(lua_skill_effect, "configList", _configList)
+	rawset(lua_skill_effect, "configDict", _configDict)
+end
+
+setmetatable(lua_skill_effect, {
+	__index = function(t, k)
+		onConfigLoad()
+
+		return rawget(t, k)
+	end
+})
+
+function lua_skill_effect.clearConfig()
+	_configList, _configDict = nil
+
+	LuaUtil.clearTable(configPath)
+	rawset(lua_skill_effect, "configList", nil)
+	rawset(lua_skill_effect, "configDict", nil)
+end
+
+return lua_skill_effect
